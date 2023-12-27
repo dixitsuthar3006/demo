@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Css variable with js</title>
+    <style>
+        :root{
+            --base: #ffc600;
+            --spacing: 10px;
+            --blur: 10px;
+        }
+        body{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: rgb(2, 66, 185);
+        }
+        h1 {
+            color: var(--base);
+            text-align: center;
+        }
+    
+        .controls {
+            text-align: center;
+        }
+        .controls .label {
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        img {
+            padding: var(--spacing);
+            background: var(--base);
+            filter: blur(var(--blur));
+            width: 500px;
+            height: 300px;
+        }
+        .img-window {
+            display: grid;
+            place-content: center;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Update Css variables with Js</h1>
+    <div class="controls">
+        <span class="label"> Spacing :</span> <input type="range" name="spacing" min="0" max="200" value="10" data-sizing="px">
+        <span class="label"> Blur :</span> <input type="range" name="blur" min="0" max="30" value="10" data-sizing="px">
+        <span class="label"> Base :</span> <input type="color" name="base" value="#ffc600">
+    </div>    
+
+    <div class="img-window">
+        <img src="./bg-city.jpg" alt="">
+    </div>
+
+    <script>
+        const inputs  = document.querySelectorAll(".controls input");
+
+        function handleUpdate() {
+            const suffix = this.dataset.sizing || '';
+            document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+        }
+
+        inputs.forEach(inp => inp.addEventListener("change",handleUpdate))
+        inputs.forEach(inp => inp.addEventListener("mousemove",handleUpdate))
+    </script>
+</body>
+</html>
